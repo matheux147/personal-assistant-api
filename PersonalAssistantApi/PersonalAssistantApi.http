@@ -1,0 +1,6 @@
+@PersonalAssistantApi_HostAddress = http://localhost:5136
+
+GET {{PersonalAssistantApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
