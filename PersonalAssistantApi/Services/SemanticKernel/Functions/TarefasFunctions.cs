@@ -34,8 +34,8 @@ public class TarefasFunctions(IMediator mediator)
     [KernelFunction, Description("Busca tarefas. Se datas forem fornecidas, filtra por período. Caso contrário, traz todas.")]
     public async Task<object> BuscarTarefas(
         [Description("ID do usuário")] string usuarioId,
-        [Description("Data Inicial (opcional) yyyy-MM-dd")] string? dataInicio = null,
-        [Description("Data Final (opcional) yyyy-MM-dd")] string? dataFim = null)
+        [Description("Data Inicial (opcional) yyyy-MM-dd HH:mm")] string? dataInicio = null,
+        [Description("Data Final (opcional) yyyy-MM-dd HH:mm")] string? dataFim = null)
     {
         if (!Guid.TryParse(usuarioId, out var uid))
             return Result<IEnumerable<TarefaDto>>.Failure("ID inválido.");

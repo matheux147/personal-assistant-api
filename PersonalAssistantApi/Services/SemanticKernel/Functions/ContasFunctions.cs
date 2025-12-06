@@ -18,8 +18,10 @@ public class ContasFunctions(IMediator mediator)
     [KernelFunction, Description("Busca as contas a pagar dentro de um intervalo de datas. Se datas forem fornecidas, filtra por período. Caso contrário, traz todas.")]
     public async Task<object> BuscarContas(
         [Description("ID do usuário (GUID)")] string usuarioId,
-        [Description("Data Inicial (opcional) yyyy-MM-dd")] string? dataInicio = null,
-        [Description("Data Final (opcional) yyyy-MM-dd")] string? dataFim = null)
+        [Description("Data Inicial (opcional) yyyy-MM-dd HH:mm")] string? dataInicio = null,
+        [Description("Data Final (opcional) yyyy-MM-dd HH:mm")] string? dataFim = null,
+        [Description("Se 'true', retorna apenas contas NÃO pagas (pendentes). Use isso quando o usuário perguntar 'o que tenho para pagar' em um período específico.")]
+        bool? somentePendentes = null)
     {
         if (!Guid.TryParse(usuarioId, out var uid))
             return Result<IEnumerable<ContaDto>>.Failure("ID de usuário inválido.");
@@ -28,7 +30,7 @@ public class ContasFunctions(IMediator mediator)
         {
             if (DateTime.TryParse(dataInicio, out var inicio) && DateTime.TryParse(dataFim, out var fim))
             {
-                return await _mediator.Send(new BuscarContasPorDataQuery(uid, inicio, fim));
+                return await _mediator.Send(new BuscarContasPorDataQuery(uid, inicio, fim, somentePendentes));
             }
             return Result<IEnumerable<TarefaDto>>.Failure("Datas inválidas.");
         }

@@ -15,11 +15,19 @@ public class ContaRepository(AppDbContext context) : BaseRepository<Conta>(conte
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Conta>> GetByVencimentoAsync(Guid usuarioId, DateTime inicio, DateTime fim)
+    public async Task<IEnumerable<Conta>> GetByVencimentoAsync(Guid usuarioId, DateTime inicio, DateTime fim, bool? somentePendentes = null)
     {
-        return await _context.Contas.AsNoTracking()
-            .Where(c => c.UsuarioId == usuarioId && c.DataVencimento.Date >= inicio.Date && c.DataVencimento.Date <= fim.Date)
-            .ToListAsync();
+        var query = _context.Contas.AsNoTracking()
+            .Where(c => c.UsuarioId == usuarioId
+                     && c.DataVencimento.Date >= inicio.Date
+                     && c.DataVencimento.Date <= fim.Date);
+
+        if (somentePendentes.HasValue && somentePendentes.Value)
+        {
+            query = query.Where(c => !c.Pago);
+        }
+
+        return await query.OrderBy(c => c.DataVencimento).ToListAsync();
     }
 
     public async Task<IEnumerable<Conta>> GetPendentesByUsuarioIdAsync(Guid usuarioId)

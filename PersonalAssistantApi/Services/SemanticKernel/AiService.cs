@@ -35,6 +35,18 @@ public class AiService(Kernel kernel) : IAiService
             2. Contas: Descrição APENAS com o nome. SEM valor no texto.
             3. Agendamentos (Consultas, Reuniões) são TAREFAS.
             Atenção: Qualquer agendamento, por exemplo: Consultas, Reuniões, Eventos, etc., deve ser registrado como TAREFA.
+
+            REGRAS DE DATAS E INTERVALOS (BUSCA):
+            1. Se o usuário pedir 'hoje' ou 'ainda hoje': 
+               - DataInicio = Hora atual.
+               - DataFim = Hoje às 23:59.
+            2. Se o usuário pedir 'até amanhã': 
+               - DataInicio = Hora atual.
+               - DataFim = Amanhã às 23:59.
+            3. Se o usuário pedir 'amanhã' (dia inteiro):
+               - DataInicio = Amanhã às 00:00.
+               - DataFim = Amanhã às 23:59.
+            4. Sempre envie as datas no formato yyyy-MM-dd HH:mm para as funções.
             ");
 
         history.AddUserMessage(inputUsuario);
