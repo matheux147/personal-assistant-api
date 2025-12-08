@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.SemanticKernel;
 using PersonalAssistantApi.Application.Common;
 using PersonalAssistantApi.Application.DTOs.Tarefas;
@@ -53,9 +53,7 @@ public class TarefasFunctions(IMediator mediator)
     }
 
     [KernelFunction, Description(@"
-        Retorna a lista de tarefas pendentes. 
-        ATENÇÃO: Use esta função IMEDIATAMENTE sempre que o usuário expressar intenção de concluir, finalizar, checar ou marcar uma tarefa como feita.
-        NÃO pergunte qual tarefa o usuário quer concluir. Apenas chame esta função para mostrar a lista.")]
+        Retorna a lista de tarefas pendentes. ")]
     public async Task<object> BuscarTarefasPendentes(
     [Description("ID do usuário")] string usuarioId)
     {
