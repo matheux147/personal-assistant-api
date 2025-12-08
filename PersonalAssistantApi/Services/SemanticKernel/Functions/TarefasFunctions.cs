@@ -53,7 +53,7 @@ public class TarefasFunctions(IMediator mediator)
     }
 
     [KernelFunction, Description(@"
-        Retorna a lista de tarefas pendentes. ")]
+        Retorna a lista de tarefas pendentes não concluidas. ")]
     public async Task<object> BuscarTarefasPendentes(
     [Description("ID do usuário")] string usuarioId)
     {
