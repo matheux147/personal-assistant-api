@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.SemanticKernel;
 using PersonalAssistantApi.Application.Common;
 using PersonalAssistantApi.Application.DTOs.Contas;
@@ -66,9 +66,7 @@ public class ContasFunctions(IMediator mediator)
     }
 
     [KernelFunction, Description(@"
-        Retorna a lista de contas pendentes não pagas.
-        ATENÇÃO: Use esta função IMEDIATAMENTE sempre que o usuário expressar intenção de pagar, quitar ou dar baixa em uma conta.
-        NÃO pergunte qual conta é. Apenas chame esta função para mostrar a lista.")]
+        Retorna a lista de contas pendentes não pagas.")]
     public async Task<object> BuscarContasPendentes(
     [Description("ID do usuário")] string usuarioId)
     {
